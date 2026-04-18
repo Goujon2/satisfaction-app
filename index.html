@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Votre avis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+
+  <main class="card" id="survey-card">
+
+    <!-- En-tête -->
+    <div class="card-header">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <h1 class="card-title">Votre avis compte</h1>
+      <p class="card-subtitle">30 secondes pour nous aider à nous améliorer</p>
+    </div>
+
+    <!-- Formulaire -->
+    <form id="survey-form" novalidate>
+
+      <div class="section">
+        <p class="section-label">Comment s'est passée votre visite ?</p>
+        <div class="emoji-group" role="radiogroup" aria-label="Niveau de satisfaction">
+
+          <label class="emoji-option" data-value="satisfied">
+            <input type="radio" name="rating" value="satisfied" hidden />
+            <div class="emoji-face">😊</div>
+            <span class="emoji-text">Satisfait</span>
+            <div class="rating-note">10/10</div>
+            <div class="check-ring"></div>
+          </label>
+
+          <label class="emoji-option" data-value="neutral">
+            <input type="radio" name="rating" value="neutral" hidden />
+            <div class="emoji-face">😐</div>
+            <span class="emoji-text">Neutre</span>
+            <div class="rating-note">5/10</div>
+            <div class="check-ring"></div>
+          </label>
+
+          <label class="emoji-option" data-value="unsatisfied">
+            <input type="radio" name="rating" value="unsatisfied" hidden />
+            <div class="emoji-face">😞</div>
+            <span class="emoji-text">Insatisfait</span>
+            <div class="rating-note">0/10</div>
+            <div class="check-ring"></div>
+          </label>
+
+        </div>
+        <p class="error-msg" id="rating-error" aria-live="polite">Veuillez sélectionner une note.</p>
+      </div>
+
+      <div class="section">
+        <p class="section-label">Vos coordonnées</p>
+        <div class="name-row">
+          <div class="input-wrap">
+            <input type="text" id="firstname" name="firstname" placeholder="Prénom" maxlength="50" autocomplete="given-name" />
+            <p class="error-msg" id="firstname-error" aria-live="polite">Champ requis.</p>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="lastname" name="lastname" placeholder="Nom" maxlength="50" autocomplete="family-name" />
+            <p class="error-msg" id="lastname-error" aria-live="polite">Champ requis.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <label class="section-label" for="comment">Votre commentaire</label>
+        <textarea
+          id="comment"
+          name="comment"
+          rows="3"
+          maxlength="500"
+          placeholder="Partagez votre expérience..."
+        ></textarea>
+        <p class="error-msg" id="comment-error" aria-live="polite">Veuillez écrire un commentaire.</p>
+        <div class="char-count"><span id="char-num">0</span> / 500</div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">
+        <span class="btn-label">Envoyer mon avis</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+
+    </form>
+
+    <!-- Message de succès (caché par défaut) -->
+    <div class="success-screen" id="success-screen" hidden>
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h2 class="success-title">Merci !</h2>
+      <p class="success-text">Ces 30 secondes vont nous aider à nous améliorer.</p>
+      <button class="btn-new" onclick="resetForm()">Donner un autre avis</button>
+    </div>
+
+  </main>
+
+  <footer class="app-footer">Enquête sécurisée · Données confidentielles</footer>
+
+  <script src="js/survey.js"></script>
+</body>
+</html>
