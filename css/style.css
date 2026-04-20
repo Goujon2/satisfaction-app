@@ -267,10 +267,10 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
 .success-icon {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: var(--green-);
+  background: var(--green-light);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--green-dark);
+  color: var(--green);
 }
 .success-icon svg { width: 28px; height: 28px; }
 
@@ -359,11 +359,16 @@ input[type="text"]:-webkit-autofill:focus {
 /* ===== Fond mobile — affiche le haut de l'image (logo JMJ + dessin) ===== */
 @media (max-width: 768px) and (orientation: portrait) {
   body {
-    background-position: 70% top;
+    background-position: 85% top;
     justify-content: flex-start;
     padding-top: 2.5rem;
   }
   body::after {
-    background-position: 70% top;
+    background-position: 85% top;
   }
+}
+
+@media (max-width: 390px) and (orientation: portrait) {
+  body      { background-position: 92% top; }
+  body::after { background-position: 92% top; }
 }
