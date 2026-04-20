@@ -22,11 +22,14 @@
   --blur:        blur(18px) saturate(1.4);
 }
 
-html, body {
+html {
+  min-height: 100%;
+}
+
+body {
   min-height: 100vh;
+  min-height: 100dvh; /* hauteur dynamique sur mobile (barre navigateur) */
   font-family: 'DM Sans', sans-serif;
-  background:
-    url('../img/fond_jmj.jpg') center center / cover no-repeat fixed;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -35,6 +38,34 @@ html, body {
   padding: 1.5rem;
   position: relative;
   overflow-x: hidden;
+
+  /* Fallback couleur si l'image ne charge pas */
+  background-color: #1a3a6e;
+
+  /* Image de fond compatible tous navigateurs */
+  background-image: url('../img/fond_jmj.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* fixed pose problème sur iOS Safari — on utilise scroll + pseudo-element */
+  background-attachment: scroll;
+}
+
+/* Fond fixe simulé via pseudo-element (compatible iOS Safari) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../img/fond_jmj.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  /* Prefixes pour anciens navigateurs */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 /* Léger overlay pour lisibilité */
@@ -42,6 +73,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0; /* fallback pour anciens navigateurs */
   background: rgba(10, 30, 60, 0.18);
   pointer-events: none;
   z-index: 0;
@@ -235,10 +267,10 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
 .success-icon {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--green-dark);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--green-dark);
+  color: var(--green);
 }
 .success-icon svg { width: 28px; height: 28px; }
 
@@ -279,6 +311,15 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
   text-align: center;
 }
 
+/* ===== Responsive ===== */
+@media (max-width: 400px) {
+  .card { padding: 1.5rem 1.25rem; }
+  .card-title { font-size: 1.5rem; }
+  .emoji-group { gap: .5rem; }
+  .emoji-option { padding: .75rem .3rem; }
+  .emoji-face { font-size: 1.75rem; }
+}
+
 /* ===== Champs nom / prénom ===== */
 .name-row {
   display: grid;
@@ -313,13 +354,4 @@ input[type="text"]:-webkit-autofill:focus {
 
 @media (max-width: 400px) {
   .name-row { grid-template-columns: 1fr; }
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 400px) {
-  .card { padding: 1.5rem 1.25rem; }
-  .card-title { font-size: 1.5rem; }
-  .emoji-group { gap: .5rem; }
-  .emoji-option { padding: .75rem .3rem; }
-  .emoji-face { font-size: 1.75rem; }
 }
