@@ -267,10 +267,10 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
 .success-icon {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: var(--green-dark);
+  background: var(--green-light);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--green);
+  color: var(--green-dark);
 }
 .success-icon svg { width: 28px; height: 28px; }
 
