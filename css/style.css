@@ -44,7 +44,7 @@ body {
 
   /* Image de fond compatible tous navigateurs */
   background-image: url('../img/fond_jmj.jpg');
-  background-position: center top;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -58,7 +58,7 @@ body::after {
   position: fixed;
   inset: 0;
   background-image: url('../img/fond_jmj.jpg');
-  background-position: center top;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -1;
@@ -354,21 +354,4 @@ input[type="text"]:-webkit-autofill:focus {
 
 @media (max-width: 400px) {
   .name-row { grid-template-columns: 1fr; }
-}
-
-/* ===== Fond mobile — affiche le haut de l'image (logo JMJ + dessin) ===== */
-@media (max-width: 768px) and (orientation: portrait) {
-  body {
-    background-position: 85% top;
-    justify-content: flex-start;
-    padding-top: 2.5rem;
-  }
-  body::after {
-    background-position: 85% top;
-  }
-}
-
-@media (max-width: 390px) and (orientation: portrait) {
-  body      { background-position: 92% top; }
-  body::after { background-position: 92% top; }
 }
