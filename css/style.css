@@ -28,7 +28,7 @@ html {
 
 body {
   min-height: 100vh;
-  min-height: 100dvh; /* hauteur dynamique sur mobile (barre navigateur) */
+  min-height: 100dvh;
   font-family: 'DM Sans', sans-serif;
   color: var(--text);
   display: flex;
@@ -45,10 +45,11 @@ body {
   /* Image de fond compatible tous navigateurs */
   background-image: url('../img/fond_jmj.jpg');
   background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
-
-  /* fixed pose problème sur iOS Safari — on utilise scroll + pseudo-element */
   background-attachment: scroll;
 }
 
@@ -56,24 +57,22 @@ body {
 body::after {
   content: '';
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('../img/fond_jmj.jpg');
   background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  /* Prefixes pour anciens navigateurs */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
-/* Léger overlay pour lisibilité */
+/* Overlay pour lisibilité */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  top: 0; left: 0; right: 0; bottom: 0; /* fallback pour anciens navigateurs */
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(10, 30, 60, 0.18);
   pointer-events: none;
   z-index: 0;
@@ -267,10 +266,10 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
 .success-icon {
   width: 64px; height: 64px;
   border-radius: 50%;
-  background: var(--green-);
+  background: var(--green-light);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--green-dark);
+  color: var(--green);
 }
 .success-icon svg { width: 28px; height: 28px; }
 
@@ -354,4 +353,16 @@ input[type="text"]:-webkit-autofill:focus {
 
 @media (max-width: 400px) {
   .name-row { grid-template-columns: 1fr; }
+}
+
+
+/* ===== Titre établissement ===== */
+.card-location {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-top: .2rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.18);
 }
