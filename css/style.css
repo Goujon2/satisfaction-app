@@ -358,11 +358,11 @@ input[type="text"]:-webkit-autofill:focus {
 
 /* ===== Titre établissement ===== */
 .card-location {
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: .08em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  margin-top: .2rem;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.18);
+  margin-bottom: .75rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
