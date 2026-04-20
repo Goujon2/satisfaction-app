@@ -269,7 +269,7 @@ textarea::placeholder { color: rgba(80,100,80,0.55); }
   background: var(--green-light);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--green-dark);
+  color: var(--green);
 }
 .success-icon svg { width: 28px; height: 28px; }
 
@@ -358,6 +358,7 @@ input[type="text"]:-webkit-autofill:focus {
 
 /* ===== Titre établissement ===== */
 .card-location {
+  font-family: 'DM Sans', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
