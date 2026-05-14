@@ -2,10 +2,10 @@
    survey.js — Logique du formulaire de satisfaction
    ===================================================== */
 
-// ── CONFIG ──────────────────────────────────────────
-const CONFIG = {
-  endpoint: "https://formspree.io/f/xykleglk",  // ← à remplacer
-};
+// ── CONFIG ───────────────────────────────────────────
+const SUPABASE_URL   = "https://rdcvahghtglitrfajucd.supabase.co";
+const SUPABASE_KEY   = "sb_publishable_pJGWWz897zsx-aLl9uUn1w_-ZW3nzon"; // ← clé complète ici
+const FORMSPREE_URL  = "https://formspree.io/f/xykleglk"; // ← votre ID Formspree
 
 // ── ÉTAT ────────────────────────────────────────────
 let selectedRating = null;
@@ -87,23 +87,47 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// ── ENVOI EMAIL ──────────────────────────────────────
+// ── ENVOI SUPABASE + FORMSPREE ───────────────────────
 async function sendToEmail(payload) {
-  const response = await fetch(CONFIG.endpoint, {
+
+  // 1. Supabase — enregistrement en base de données
+  const supabaseRes = await fetch(SUPABASE_URL + "/rest/v1/responses", {
     method:  "POST",
-    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    headers: {
+      "Content-Type":  "application/json",
+      "apikey":        SUPABASE_KEY,
+      "Authorization": "Bearer " + SUPABASE_KEY,
+      "Prefer":        "return=minimal"
+    },
     body: JSON.stringify({
-      subject:     "[Satisfaction] " + payload.firstname + " " + payload.lastname + " — " + ratingLabel(payload.rating),
-      message:     formatEmailBody(payload),
-      prenom:      payload.firstname,
-      nom:         payload.lastname,
-      note:        ratingLabel(payload.rating),
-      commentaire: payload.comment,
-      date:        payload.timestamp,
+      firstname: payload.firstname,
+      lastname:  payload.lastname,
+      rating:    payload.rating,
+      comment:   payload.comment,
     }),
   });
-  if (!response.ok) throw new Error("HTTP " + response.status);
-  return response.json();
+  if (!supabaseRes.ok) {
+    const err = await supabaseRes.text();
+    throw new Error("Supabase error: " + err);
+  }
+
+  // 2. Formspree — envoi email (non bloquant, échec silencieux)
+  try {
+    await fetch(FORMSPREE_URL, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        subject:     "[Satisfaction] " + payload.firstname + " " + payload.lastname + " — " + ratingLabel(payload.rating),
+        prenom:      payload.firstname,
+        nom:         payload.lastname,
+        note:        ratingLabel(payload.rating),
+        commentaire: payload.comment || "(aucun)",
+        date:        payload.timestamp,
+      }),
+    });
+  } catch(e) {
+    console.warn("Formspree non disponible, vote enregistré dans Supabase uniquement.");
+  }
 }
 
 // ── HELPERS ──────────────────────────────────────────
